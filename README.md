@@ -22,12 +22,13 @@ Dependencies
 
 Example Playbook
 ----------------
-
+```
 - hosts: servers
   roles:
      - role: noqcks.s3-website
-      s3_website_domain: "benvisser.me"
-      s3_website_directory: "/Users/benvisser/data/website"
+       s3_website_domain: "benvisser.me"
+       s3_website_directory: "/Users/benvisser/data/website"
+```
 
 License
 -------
