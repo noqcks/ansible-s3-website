@@ -1,5 +1,7 @@
 # ansible-s3-wesbite
 
+A simple ansible role that uses S3, Route53, and cloudfront to create a low-latency static website.
+
 [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
 Tunables
