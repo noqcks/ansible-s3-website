@@ -1,0 +1,26 @@
+---
+- name: Create NS Hosted Zone
+  route53:
+    command: create
+    zone: "{{ s3_website_domain }}"
+    record: "{{ s3_website_domain }}"
+    overwrite: true
+    type: "NS"
+    ttl: 300
+    value: "{{ s3_website_ns_servers | join(',') }}"
+  when: s3_website_ns_servers_enabled
+
+- name: Create Route53 Alias for Cloudfront Distribution
+  route53:
+    alias: true
+    command: create
+    zone: "{{ s3_website_domain }}"
+    record: "{{ item }}"
+    overwrite: true
+    type: "A"
+    ttl: 300
+    alias_hosted_zone_id: "Z2FDTNDATAQYW2"
+    value: "{{ s3_website_cloudfront_domain }}"
+  with_items: 
+    - "{{ s3_website_domain }}"
+    - "www.{{ s3_website_domain}}" 

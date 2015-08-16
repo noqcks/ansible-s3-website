@@ -1,2 +1,4 @@
 ---
-- include: configure.yml
+- include: s3.yml
+- include: cloudfront.yml
+- include: route53.yml

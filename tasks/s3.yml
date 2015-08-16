@@ -1,6 +1,7 @@
 ---
 - name: Create S3 Bucket
-  command: "aws s3 mb s3://www.{{ s3_website_domain }} --region {{ s3_website_region }}"
+  command: "aws s3 mb s3://www.{{ s3_website_domain }}"
+  ignore_errors: yes
 
 - name: Upload Static Site to S3
   command: "aws s3 cp {{ s3_website_directory }} s3://www.{{ s3_website_domain }}/ --recursive"
@@ -10,9 +11,3 @@
 
 - name: Set S3 Website Config
   command: "aws s3 website s3://www.{{ s3_website_domain }}/ --index-document {{ s3_website_index_document }} --error-document {{ s3_website_error_document }}"
-
-- name: Enable Cloudfront API
-  command: aws configure set preview.cloudfront true    
-
-- name: Create Cloudfront Distribution
-  command: "aws cloudfront create-distribution --distribution-config '{{ s3_website_cloudfront_distribution }}'"

@@ -1,10 +1,12 @@
 ---
-s3_website_domain: benvisser.me
-s3_website_region: us-west-1 
+s3_website_domain: ""
+s3_website_region: us-east-1 
 s3_website_s3_endpoint: "www.{{ s3_website_domain }}.s3-website-{{ s3_website_region }}.amazonaws.com"
-s3_website_directory: /Users/benvisser/data/website
+s3_website_directory: ""
 s3_website_index_document: index.html
 s3_website_error_document: error.html
+s3_website_ns_servers_enabled: no
+s3_website_ns_servers: []
 s3_wesbite_bucket_policy: | 
   {
     "Statement": [
@@ -20,7 +22,7 @@ s3_wesbite_bucket_policy: |
   }
 s3_website_cloudfront_distribution: |
   {
-    "Comment": "test", 
+    "Comment": "{{ s3_website_domain }}", 
     "CacheBehaviors": {
       "Quantity": 0
     }, 
@@ -80,7 +82,7 @@ s3_website_cloudfront_distribution: |
       }, 
       "MinTTL": 86400
     }, 
-    "CallerReference": "34053042795684365", 
+    "CallerReference": "{{ 100000000000000000000 | random }}", 
     "ViewerCertificate": {
       "CloudFrontDefaultCertificate": true, 
       "MinimumProtocolVersion": "SSLv3"
