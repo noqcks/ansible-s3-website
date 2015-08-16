@@ -9,6 +9,8 @@
     ttl: 300
     value: "{{ s3_website_ns_servers | join(',') }}"
   when: s3_website_ns_servers_enabled
+  tags: 
+    - route53
 
 - name: Create Route53 Alias for Cloudfront Distribution
   route53:
@@ -24,3 +26,5 @@
   with_items: 
     - "{{ s3_website_domain }}"
     - "www.{{ s3_website_domain}}" 
+  tags: 
+    - route53

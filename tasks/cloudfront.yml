@@ -1,10 +1,16 @@
 ---
 - name: Enable Cloudfront API
   command: aws configure set preview.cloudfront true    
+  tags: 
+    - cloudfront
 
 - name: Create Cloudfront Distribution
   command: "aws cloudfront create-distribution --distribution-config '{{ s3_website_cloudfront_distribution }}'"
   register: cloudfront_response
+  tags: 
+    - cloudfront
 
 - set_fact:
     s3_website_cloudfront_domain: "{{ (cloudfront_response.stdout|from_json)['Distribution']['DomainName'] }}"
+  tags: 
+    - cloudfront

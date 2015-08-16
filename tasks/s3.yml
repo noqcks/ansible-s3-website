@@ -2,12 +2,22 @@
 - name: Create S3 Bucket
   command: "aws s3 mb s3://www.{{ s3_website_domain }}"
   ignore_errors: yes
+  tags: 
+    - s3
+    - s3-create
 
 - name: Upload Static Site to S3
   command: "aws s3 cp {{ s3_website_directory }} s3://www.{{ s3_website_domain }}/ --recursive"
+  tags: 
+    - s3
+    - s3-sync
 
 - name: Set Bucket Policy for S3
   command: "aws s3api put-bucket-policy --bucket www.{{ s3_website_domain }} --policy '{{ s3_wesbite_bucket_policy | to_json }}'"
+  tags: 
+    - s3
 
 - name: Set S3 Website Config
   command: "aws s3 website s3://www.{{ s3_website_domain }}/ --index-document {{ s3_website_index_document }} --error-document {{ s3_website_error_document }}"
+  tags: 
+    - s3
